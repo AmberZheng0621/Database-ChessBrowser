@@ -1,0 +1,12 @@
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\bin\Debug\ChessBrowser.exe.config
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\bin\Debug\ChessBrowser.exe
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\bin\Debug\ChessBrowser.pdb
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\bin\Debug\MySql.Data.dll
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.csprojAssemblyReference.cache
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.Form1.resources
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.Properties.Resources.resources
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.csproj.GenerateResource.cache
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.csproj.CoreCompileInputs.cache
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.csproj.CopyComplete
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.exe
+C:\Users\XI ZHENG\Desktop\ChessBrowser\ChessBrowser\obj\Debug\ChessBrowser.pdb
