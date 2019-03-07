@@ -27,12 +27,12 @@ namespace ChessTools
             this.Site = site;
         }
 
-        private String EventDate;
-        public String GetDate()
+        private DateTime EventDate;
+        public DateTime GetDate()
         {
             return this.EventDate;
         }
-        public void SetDate(String date)
+        public void SetDate(DateTime date)
         {
             this.EventDate = date;
         }
@@ -54,21 +54,21 @@ namespace ChessTools
         {
             this.White = white;
         }
-        private String WhiteElo;
-        public String GetWhiteElo()
+        private uint WhiteElo;
+        public uint GetWhiteElo()
         {
             return this.WhiteElo;
         }
-        public void SetWhiteElo(String whiteelo)
+        public void SetWhiteElo(uint whiteelo)
         {
             this.WhiteElo = whiteelo;
         }
-        private String BlackElo;
-        public String GetBlackElo()
+        private uint BlackElo;
+        public uint GetBlackElo()
         {
             return this.BlackElo;
         }
-        public void SetBlackElo(String blackelo)
+        public void SetBlackElo(uint blackelo)
         {
             this.BlackElo = blackelo;
         }

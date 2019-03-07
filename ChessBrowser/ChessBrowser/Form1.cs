@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ChessTools;
 namespace ChessBrowser
 {
   public partial class Form1 : Form
   {
+
+        PGNReader A = new PGNReader();
     public Form1()
     {
       InitializeComponent();
+       
     }
 
     private void label1_Click(object sender, EventArgs e)

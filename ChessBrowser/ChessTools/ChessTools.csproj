@@ -46,12 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessBrowser\ChessBrowser.csproj">
-      <Project>{fb7e0d18-51b9-45f5-bdd3-8e7de3fb84ac}</Project>
-      <Name>ChessBrowser</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="kb1.pgn" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

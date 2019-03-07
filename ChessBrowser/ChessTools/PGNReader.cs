@@ -9,16 +9,13 @@ using System.Threading.Tasks;
 namespace ChessTools
 {
     
-    class PGNReader
+    public  class PGNReader
     {
-       public static void main(String[] args)
-        {
-            ReadPGN("kb1.pgn");
-        }
-        public static List<ChessGame> ReadPGN(String path)
+       
+        public  List<ChessGame> ReadPGN(String path)
         {
             List<ChessGame> games= new List<ChessGame>();
-           if(!File.Exists(path))
+           if(File.Exists(path))
             {
                 String[] readText = File.ReadAllLines(path);
                 int i = 0;
@@ -31,7 +28,7 @@ namespace ChessTools
                            
                             if (each.StartsWith("[EventDate"))
                             {
-                                game.SetDate(each.Substring(12, each.IndexOf("]") - 2));
+                                game.SetDate(Convert.ToDateTime(each.Substring(12, each.Length - 14)));
                             i++;
                             each = readText[i];
                                 continue;
@@ -39,14 +36,14 @@ namespace ChessTools
 
                             if (each.StartsWith("[Event"))
                             {
-                                game.SetEventName(each.Substring(8, each.IndexOf("]") - 2));
+                                game.SetEventName(each.Substring(8, each.Length - 10));
                             i++;
                             each = readText[i];
                             continue;
                             }
                             if (each.StartsWith("[Site"))
                             {
-                                game.SetSite(each.Substring(7, each.IndexOf("]") - 2));
+                                game.SetSite(each.Substring(7, each.Length - 9));
                             i++;
                             each = readText[i];
                             continue;
@@ -54,35 +51,47 @@ namespace ChessTools
 
                             if (each.StartsWith("[WhiteElo"))
                             {
-                                game.SetWhiteElo(each.Substring(11, each.IndexOf("]") - 2));
+                                game.SetWhiteElo(Convert.ToUInt32(each.Substring(11, each.Length - 13)));
                             i++;
                             each = readText[i];
                             continue;
                             }
                             if (each.StartsWith("[BlackElo"))
                             {
-                                game.SetBlackElo(each.Substring(11, each.IndexOf("]") - 2));
+                                game.SetBlackElo(Convert.ToUInt32(each.Substring(11, each.Length - 13)));
                             i++;
                             each = readText[i];
                             continue;
                             }
                             if (each.StartsWith("[White"))
                             {
-                                game.SetWhiteName(each.Substring(8, each.IndexOf("]") - 2));
+                                game.SetWhiteName(each.Substring(8, each.Length - 10));
                             i++;
                             each = readText[i];
                             continue;
                             }
                             if (each.StartsWith("[Black"))
                             {
-                                game.SetBlackName(each.Substring(8, each.IndexOf("]") - 2));
+                                game.SetBlackName(each.Substring(8, each.Length - 10));
                             i++;
                             each = readText[i];
                             continue;
                             }
                             if (each.StartsWith("[Result"))
                             {
-                                game.SetResult(each.Substring(9, each.IndexOf("]") - 2));
+                            String res = each.Substring(9, each.Length - 11);
+                            if (res.Equals("1-0"))
+                            {
+                                game.SetResult("W");
+                            }
+                            else if (res.Equals("0-1"))
+                            {
+                                game.SetResult("B");
+                            }
+                            else
+                            {
+                                    game.SetResult("D");   
+                            }
                             i++;
                             each = readText[i];
                             continue;
@@ -90,17 +99,24 @@ namespace ChessTools
                             else
                         {
                             i++;
+                            each = readText[i];
+                            continue;
                         }
                     }
                     String move = "";
+                   
                     i++;
-                    while (String.IsNullOrEmpty(each))
+                    while (!String.IsNullOrEmpty(readText[i])&& i<readText.Length)
                     {
-                        move = move + each;
+                        move=move+readText[i];
+                       
                         i++;
+                        
                     }
+                    
                     game.Setmoves(move);
                     games.Add(game);
+                    i++;
                 }
                 
 
@@ -108,7 +124,7 @@ namespace ChessTools
 
             
 
-            return null;
+            return games;
         }
         
     }

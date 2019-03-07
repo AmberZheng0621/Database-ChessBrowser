@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
+using ChessTools;
 namespace ChessBrowser
 {
   partial class Form1
@@ -16,7 +16,7 @@ namespace ChessBrowser
     /// Keep track of which radio button is pressed
     /// </summary>
     private RadioButton winnerButton = null;
-
+        //private PGNReader reader = new PGNReader();
     /// <summary>
     /// This function handles the "Upload PGN" button.
     /// Given a filename, parses the PGN file, and uploads
@@ -25,37 +25,156 @@ namespace ChessBrowser
     /// <param name="PGNfilename">The path to the PGN file</param>
     private void UploadGamesToDatabase(string PGNfilename)
     {
-      // This will build a connection string to your user's database on atr,
-      // assuimg you've typed a user and password in the GUI
-      string connection = GetConnectionString();
+            // This will build a connection string to your user's database on atr,
+            // assuimg you've typed a user and password in the GUI
+            PGNReader read = new PGNReader();
+           string connection = GetConnectionString();
+           List<ChessGame> games = read.ReadPGN(PGNfilename);
+            // TODO: Load and parse the PGN file
+            //       We recommend creating separate libraries to represent chess data and load the file
+           
+            // Use this to tell the GUI's progress bar how many total work steps there are
+            // For example, one iteration of your main upload loop could be one work step
+            // SetNumWorkItems(...);
 
-      // TODO: Load and parse the PGN file
-      //       We recommend creating separate libraries to represent chess data and load the file
+            using (MySqlConnection conn = new MySqlConnection(connection))
 
-      // Use this to tell the GUI's progress bar how many total work steps there are
-      // For example, one iteration of your main upload loop could be one work step
-      // SetNumWorkItems(...);
+            {
+
+                try
+                {
+                    // Open a connection
+                    conn.Open();
+                    foreach (ChessGame g in games)
+                    {
+
+                        MySqlCommand command = new MySqlCommand();
+                        command.Connection = conn;
+                        command.CommandText = "insert ignore into Events(Name,Site,Date)" +
+                                     "values(@name,@site,@date) ;";
+
+                        command.Parameters.AddWithValue("@name", g.GetEventName());
+                        command.Parameters.AddWithValue("@site", g.GetSite());
+                        command.Parameters.AddWithValue("@date", g.GetDate());
+                        command.Prepare();
+                        command.ExecuteNonQuery();
+                        //eid is suto-increment
+
+                    }
+                    conn.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+           
+            using (MySqlConnection conn2 = new MySqlConnection(connection))
+
+            {
+                try
+                {
+                    // Open a connection
+                    conn2.Open();
+                    foreach (ChessGame g in games)
+                    {
+
+                        MySqlCommand command2 = new MySqlCommand();
+                        command2.Connection = conn2;
+
+                        command2.CommandText = "insert ignore into Players(Name,Elo)" +
+                                    "values(@name,@Elo)  select name where not exists (select 1 from Players where Name =@name);";
+
+                        command2.Parameters.AddWithValue("@name", g.GetWhiteName());
+                        command2.Parameters.AddWithValue("@Elo", g.GetWhiteElo());
+                        command2.Prepare();
+                        command2.ExecuteNonQuery();
+
+                    }
+
+                    conn2.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            using (MySqlConnection conn1 = new MySqlConnection(connection))
+
+            {
+
+                try
+                {
+                    // Open a connection
+                    conn1.Open();
+                    foreach (ChessGame g in games)
+                    {
+
+                        MySqlCommand command1 = new MySqlCommand();
+                        command1.Connection = conn1;
+
+                        command1.CommandText = "insert ignore into Players(Name,Elo)" +
+                                    "values(@name,@Elo) where name not in (select Name from Players);";
+
+                        command1.Parameters.AddWithValue("@name", g.GetBlackName());
+                        command1.Parameters.AddWithValue("@Elo", g.GetBlackElo());
+                        command1.Prepare();
+                        command1.ExecuteNonQuery();
+
+                    }
+
+                    conn1.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            using (MySqlConnection conn3 = new MySqlConnection(connection))
+
+            {
+
+                try
+                {
+                    // Open a connection
+                    conn3.Open();
+                    foreach (ChessGame g in games)
+                    {
+                        
+                        MySqlCommand command3 = new MySqlCommand();
+                        command3.Connection = conn3;
+
+                       
 
 
-      using (MySqlConnection conn = new MySqlConnection(connection))
-      {
-        try
-        {
-          // Open a connection
-          conn.Open();
-         
+                        command3.CommandText = "insert ignore into Games(Result,Moves,BlackPlayer,WhitePlayer,eID)" +
+                                    "values(@result,@Moves,(select pID from Players where Name ='" +g.GetBlackName()+
+                                    "'),(select pID from Players where Name ='" + g.GetWhiteName()+ "'),(select eID from Events where Name ='" + g.GetEventName()+"')); "; 
 
-          // TODO: iterate through your data and generate appropriate insert commands
+                        command3.Parameters.AddWithValue("@Result", g.GetResult());
+                        command3.Parameters.AddWithValue("@Moves", g.Getmoves());
+                        
+                        command3.Prepare();
+                        command3.ExecuteNonQuery();
 
-          // Use this to tell the GUI that one work step has completed:
-          // WorkStepCompleted();
+                    }
 
-        }
-        catch (Exception e)
-        {
-          Console.WriteLine(e.Message);
-        }
-      }
+                    conn3.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+
+
+            // TODO: iterate through your data and generate appropriate insert commands
+
+            // Use this to tell the GUI that one work step has completed:
+            WorkStepCompleted();
 
     }
 

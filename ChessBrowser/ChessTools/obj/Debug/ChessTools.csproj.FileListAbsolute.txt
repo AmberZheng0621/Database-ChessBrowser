@@ -1,0 +1,6 @@
+C:\Users\XI ZHENG\Desktop\GroupAssignment\ChessBrowser\ChessTools\bin\Debug\ChessTools.dll
+C:\Users\XI ZHENG\Desktop\GroupAssignment\ChessBrowser\ChessTools\bin\Debug\ChessTools.pdb
+C:\Users\XI ZHENG\Desktop\GroupAssignment\ChessBrowser\ChessTools\obj\Debug\ChessTools.csprojAssemblyReference.cache
+C:\Users\XI ZHENG\Desktop\GroupAssignment\ChessBrowser\ChessTools\obj\Debug\ChessTools.csproj.CoreCompileInputs.cache
+C:\Users\XI ZHENG\Desktop\GroupAssignment\ChessBrowser\ChessTools\obj\Debug\ChessTools.dll
+C:\Users\XI ZHENG\Desktop\GroupAssignment\ChessBrowser\ChessTools\obj\Debug\ChessTools.pdb
