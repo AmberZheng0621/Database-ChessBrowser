@@ -27,12 +27,12 @@ namespace ChessTools
             this.Site = site;
         }
 
-        private DateTime EventDate;
-        public DateTime GetDate()
+        private String EventDate;
+        public String  GetDate()
         {
             return this.EventDate;
         }
-        public void SetDate(DateTime date)
+        public void SetDate(String  date)
         {
             this.EventDate = date;
         }

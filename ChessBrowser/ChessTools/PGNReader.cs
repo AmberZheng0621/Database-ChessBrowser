@@ -28,7 +28,9 @@ namespace ChessTools
                            
                             if (each.StartsWith("[EventDate"))
                             {
-                                game.SetDate(Convert.ToDateTime(each.Substring(12, each.Length - 14)));
+                              each= each.Substring(12, each.Length - 14);
+                          
+                                game.SetDate(each.Replace(".", "-"));
                             i++;
                             each = readText[i];
                                 continue;
